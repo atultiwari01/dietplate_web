@@ -1,0 +1,6 @@
+{
+  "name": "DailyPlate",
+  "description": "A personal diet planning and tracking web application featuring meal scheduling, punctuality tracking, adherence analytics, weight tracking, and Google Sheets/Apps Script integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
