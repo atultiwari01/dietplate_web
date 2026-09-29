@@ -1,138 +1,151 @@
-# DailyPlate
+# DailyPlate - Personal Diet Planning & Tracking (Android & Web)
 
-A personal diet planning and adherence tracking web application featuring meal scheduling, eating punctuality evaluation, dual-metric adherence analytics, body weight tracking, and Google Sheets integration.
+A personal diet planning and adherence tracking application designed for single-user wellness tracking on **Android phones**, tablets, and desktops.
 
----
-
-## 📋 Prerequisites
-
-Before running the application locally, ensure you have the following installed:
-
-- **Node.js**: `v18.0.0` or higher (`v20.x` LTS or `v22.x` recommended)
-  - Verify with: `node -v`
-- **npm**: `v9.0.0` or higher (comes bundled with Node.js)
-  - Verify with: `npm -v`
-- **Git** (optional, if cloning from a repository)
+Featuring meal scheduling, eating punctuality tracking, dual-metric adherence analytics, body weight logs, and optional private Google Sheets synchronization.
 
 ---
 
-## 🚀 Quickstart Guide (Step-by-Step)
+## 🔒 Personal Use & Privacy Guarantee (Zero Intrusive Permissions)
 
-Follow these exact shell commands in order to get DailyPlate running on `http://localhost:3000`:
+DailyPlate is created strictly for **personal, private health tracking**:
+- **0 Device Control Permissions**: DailyPlate does **NOT** request camera, microphone, contacts, location/GPS, phone calls, background sensors, or file system control.
+- **No Ads or Telemetry**: No third-party ad networks, tracking pixels, or data harvesting scripts.
+- **Your Data Stays Yours**: All meal plans, weight records, and goals are stored in your device's browser/app storage, and only sync to **your own personal Google Spreadsheet** if you choose to connect Google Apps Script.
 
-### Step 1: Open Terminal and Navigate to Project Directory
+---
 
+## 📱 Android Phone Setup Guide
+
+DailyPlate is built as an installable **Progressive Web App (PWA)** that runs on Android as a full-screen, native-feeling app (standalone display, splash screen, offline caching, and bottom touch navigation).
+
+There are two primary ways to set it up on your Android phone for personal use:
+
+---
+
+### Option 1: Access from your Phone over Home Wi-Fi (Local Network)
+
+Use this method when running the app locally on your computer:
+
+#### Step 1: Start the Server on your Computer
+In your project directory, launch the development server:
 ```bash
-cd /path/to/DailyPlate
+npm install
+npm run dev
 ```
+The server binds to `0.0.0.0:3000`, making it accessible to any device on the same local Wi-Fi network.
 
-### Step 2: Install Project Dependencies
+#### Step 2: Find your Computer's Local IP Address
+- **Windows (Command Prompt / PowerShell)**:
+  ```cmd
+  ipconfig
+  ```
+  Look for **IPv4 Address** under your active Wi-Fi adapter (e.g., `192.168.1.45`).
+- **macOS (Terminal)**:
+  ```bash
+  ipconfig getifaddr en0
+  ```
+- **Linux (Terminal)**:
+  ```bash
+  hostname -I
+  ```
 
-Install all required frontend and backend dependencies defined in `package.json`:
+#### Step 3: Open in Chrome on your Android Phone
+1. Ensure your Android phone is connected to the **same Wi-Fi network** as your computer.
+2. Open **Google Chrome** (or Samsung Internet, Brave, Edge) on your phone.
+3. In the URL bar, type:
+   ```text
+   http://<YOUR_COMPUTER_IP>:3000
+   ```
+   *(Example: `http://192.168.1.45:3000`)*
 
+#### Step 4: Install to Android Home Screen
+1. Chrome will show the in-app **"Use DailyPlate on Android"** banner at the top — tap **Install**.
+2. Alternatively, tap the Chrome **three dots menu (⋮)** in the top-right corner.
+3. Tap **"Install app"** or **"Add to Home screen"**.
+4. Confirm by tapping **Install**.
+5. DailyPlate is now added to your Android app drawer and home screen with its custom green icon. It opens in full-screen standalone mode with no browser address bar!
+
+---
+
+### Option 2: Access Remotely on Android from Anywhere (Free Cloud Tunnel)
+
+To access DailyPlate on your Android phone when you are away from home (on cellular mobile data or work Wi-Fi):
+
+#### Using Cloudflare Quick Tunnel (Free, No Signup, HTTPS)
+On your computer while `npm run dev` is running, open a second terminal:
+```bash
+npx cloudflared tunnel --url http://localhost:3000
+```
+This generates a secure HTTPS link (e.g. `https://random-subdomain.trycloudflare.com`).
+1. Open this link on your Android phone.
+2. Tap the Chrome menu (⋮) -> **"Install app"**.
+3. DailyPlate now runs anywhere in the world on your phone.
+
+---
+
+## 🖥️ Localhost Quickstart Guide (Step-by-Step Commands)
+
+If you are running the app on your computer:
+
+### 1. Prerequisites
+- **Node.js**: `v18.0.0` or higher (`v20.x` or `v22.x` recommended) — check with `node -v`
+- **npm**: `v9.0.0` or higher — check with `npm -v`
+
+### 2. Install Dependencies
 ```bash
 npm install
 ```
 
-### Step 3: (Optional) Set Up Environment Variables
-
-If you plan to use server-side Gemini AI features, copy the example environment file and set your key:
-
-```bash
-cp .env.example .env
-```
-
-*Note: DailyPlate operates completely without external keys out-of-the-box using local seed data and browser storage.*
-
-### Step 4: Start the Local Development Server
-
-Run the development server using `tsx` and Vite:
-
+### 3. Launch Development Server
 ```bash
 npm run dev
 ```
+Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
-You will see terminal output similar to:
-```text
-DailyPlate server running on http://0.0.0.0:3000
-```
-
-### Step 5: Open in Your Browser
-
-Open your browser and navigate to:
-
-👉 **[http://localhost:3000](http://localhost:3000)**
-
----
-
-## 📦 Production Build & Launch
-
-To verify and run the optimized production bundle locally:
-
-### Step 1: Build the Client and Server Bundles
-
+### 4. Production Build & Execution
+To compile optimized bundles for production:
 ```bash
 npm run build
-```
-This runs `vite build` to generate static assets in `dist/` and bundles `server.ts` into a CommonJS production file `dist/server.cjs` via `esbuild`.
-
-### Step 2: Start the Production Server
-
-```bash
 npm start
 ```
 
-Open `http://localhost:3000` to verify the production build.
-
 ---
 
-## 🛠️ Useful Command Reference
+## 🛠️ CLI Command Reference
 
-| Command | Description |
+| Command | Action |
 | :--- | :--- |
-| `npm run dev` | Boots the development server with Vite hot middleware on port 3000 |
-| `npm run build` | Compiles the TypeScript frontend and backend for production |
-| `npm start` | Launches the compiled production server (`node dist/server.cjs`) |
-| `npm run lint` | Runs TypeScript type checking (`tsc --noEmit`) without emitting files |
-| `npm run clean` | Deletes compiled artifacts (`dist/` directory) |
-| `npm run preview` | Runs Vite's local static preview server |
+| `npm run dev` | Boots dev server with Vite and Express on `http://0.0.0.0:3000` |
+| `npm run build` | Builds client static assets and bundles `server.ts` into `dist/` |
+| `npm start` | Launches the production Node.js server |
+| `npm run lint` | Runs TypeScript type checking (`tsc --noEmit`) |
+| `npm run clean` | Removes build output directories |
 
 ---
 
-## 📊 Connecting Google Sheets (Optional Persistent Database)
+## 📊 Connecting Personal Google Sheets (Optional)
 
-DailyPlate can synchronize all meals, punctuality logs, weight history, and user settings into your own private Google Spreadsheet:
+DailyPlate works completely standalone without any external accounts. If you want seamless cloud persistence into a Google Spreadsheet:
 
-1. Open [Google Sheets](https://sheets.new) and create a new sheet named **DailyPlate Database**.
-2. Go to **Extensions** > **Apps Script**.
-3. Copy the script from `gas/Code.gs` and paste it into the editor.
-4. Click **Deploy** > **New deployment** > Select type: **Web app**.
+1. Create a new Google Spreadsheet in Google Drive: [sheets.new](https://sheets.new).
+2. Click **Extensions** > **Apps Script**.
+3. Replace the contents of `Code.gs` with the script found in `gas/Code.gs` in this repository.
+4. Click **Deploy** > **New deployment**:
+   - Type: **Web app**
    - Execute as: **Me**
    - Who has access: **Anyone**
-5. Authorize access and copy your deployment URL (ends in `/exec`).
-6. In DailyPlate, click **Google Sheets Sync** in the top navigation or in **Profile**, paste the URL, and click **Test & Connect**.
-
-For complete step-by-step instructions, see [`gas/README.md`](./gas/README.md).
+5. Authorize access and copy your Web App URL (ends with `/exec`).
+6. In DailyPlate, click **Connect Sheets** in the header or in **Profile**, paste the URL, and click **Test & Connect**.
 
 ---
 
-## ❓ Troubleshooting
+## 💡 Android Phone Tips
 
-### Port 3000 is already in use
-If another application is running on port 3000:
-- **macOS / Linux**: Find and terminate the process:
-  ```bash
-  lsof -ti:3000 | xargs kill -9
-  ```
-- **Windows (PowerShell)**:
-  ```powershell
-  Stop-Process -Id (Get-NetTCPConnection -LocalPort 3000).OwningProcess -Force
-  ```
-
-### TypeScript or Stale Cache Issues
-If you encounter caching or dependency mismatch issues:
-```bash
-npm run clean
-npm install
-npm run dev
-```
+- **Quick Weight Updates**: In the Profile tab, use the `+` and `-` stepper to log your daily morning weight in seconds.
+- **Meal Punctuality Status**:
+  - `✓ Completed` (Green): Eaten within your scheduled punctuality window (e.g., ±30 mins).
+  - `⏱ Late` (Orange): Eaten outside the scheduled window.
+  - `✕ Missed` (Red): Skipped or unconsumed.
+  - `○ Upcoming` (Gray): Scheduled for later.
+- **Offline Reliability**: Even if your phone enters airplane mode or loses mobile signal, cached meal plans and previous entries remain visible and functional.

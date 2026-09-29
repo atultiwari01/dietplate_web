@@ -14,6 +14,9 @@ import {
   Sparkles,
   Edit2,
   Check,
+  Smartphone,
+  ShieldCheck,
+  Download,
 } from 'lucide-react';
 
 interface ProfileViewProps {
@@ -23,6 +26,7 @@ interface ProfileViewProps {
   onLogWeight: (weight: number, date: string) => Promise<void>;
   onOpenSheetsModal: () => void;
   isSheetsConnected: boolean;
+  onOpenAndroidGuide: () => void;
 }
 
 export const ProfileView: React.FC<ProfileViewProps> = ({
@@ -32,8 +36,10 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
   onLogWeight,
   onOpenSheetsModal,
   isSheetsConnected,
+  onOpenAndroidGuide,
 }) => {
   const [isEditingProfile, setIsEditingProfile] = useState(false);
+
   const [editName, setEditName] = useState(profile.name);
   const [editAge, setEditAge] = useState(profile.age);
   const [editHeight, setEditHeight] = useState(profile.height);
@@ -417,6 +423,52 @@ export const ProfileView: React.FC<ProfileViewProps> = ({
               Configure
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* Android Phone & Mobile Experience Card */}
+      <div className="p-6 rounded-2xl bg-white border border-[#dee8ff] shadow-xs flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#206140] text-white flex items-center justify-center">
+              <Smartphone className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="font-bold text-[16px] text-[#121c2c]">Android Phone Experience</h3>
+                <span className="px-2 py-0.5 rounded-full bg-[#aff1c6] text-[#002111] text-[10px] font-bold uppercase">
+                  Standalone Ready
+                </span>
+              </div>
+              <p className="text-[12px] text-[#404942]">
+                Optimized for touch screens, offline caching, and zero invasive permissions
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={onOpenAndroidGuide}
+            className="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#206140] text-white text-[12px] font-bold hover:bg-[#3b7a57] transition shadow-xs"
+          >
+            <Smartphone className="w-3.5 h-3.5" /> Setup Guide
+          </button>
+        </div>
+
+        <div className="p-4 rounded-xl bg-[#f0f3ff] border border-[#dee8ff] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <ShieldCheck className="w-5 h-5 text-[#206140] shrink-0" />
+            <div className="text-[12px]">
+              <span className="font-bold text-[#121c2c]">Zero Invasive Control Permissions</span>
+              <p className="text-[#404942]">
+                DailyPlate does not request camera, microphone, GPS, contacts, or storage control. Completely private for personal use.
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={onOpenAndroidGuide}
+            className="sm:hidden w-full py-2.5 rounded-xl bg-[#206140] text-white text-[12px] font-bold flex items-center justify-center gap-1.5 shadow-xs"
+          >
+            <Smartphone className="w-3.5 h-3.5" /> Open Mobile Guide
+          </button>
         </div>
       </div>
     </div>

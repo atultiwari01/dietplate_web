@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ViewTab, UserProfile } from '../types';
 import { DailyPlateLogo } from './DailyPlateLogo';
-import { Bell, Database, CheckCircle2, CloudOff } from 'lucide-react';
+import { Bell, Database, CheckCircle2, CloudOff, Smartphone } from 'lucide-react';
 
 interface HeaderProps {
   currentTab: ViewTab;
@@ -9,6 +9,7 @@ interface HeaderProps {
   onSelectTab: (tab: ViewTab) => void;
   onOpenSheetsModal: () => void;
   isSheetsConnected: boolean;
+  onOpenAndroidGuide: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -17,6 +18,7 @@ export const Header: React.FC<HeaderProps> = ({
   onSelectTab,
   onOpenSheetsModal,
   isSheetsConnected,
+  onOpenAndroidGuide,
 }) => {
   const [showNotificationToast, setShowNotificationToast] = useState(false);
 
@@ -45,6 +47,16 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right side actions */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Android Mobile Setup Quick Button */}
+          <button
+            onClick={onOpenAndroidGuide}
+            className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-[12px] font-semibold bg-[#e7f5ec] text-[#206140] hover:bg-[#c5ffd8] transition shadow-xs"
+            title="Android Phone Setup & Install Guide"
+          >
+            <Smartphone className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Android App</span>
+          </button>
+
           {/* Sheets Quick Status Button */}
           <button
             onClick={onOpenSheetsModal}
@@ -66,6 +78,7 @@ export const Header: React.FC<HeaderProps> = ({
               </span>
             )}
           </button>
+
 
           {/* Notifications Button */}
           <div className="relative">

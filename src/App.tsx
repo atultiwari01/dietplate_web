@@ -12,6 +12,9 @@ import { MealModal } from './components/MealModal';
 import { WeightModal } from './components/WeightModal';
 import { SheetsSetupModal } from './components/SheetsSetupModal';
 import { OnboardingModal } from './components/OnboardingModal';
+import { AndroidSetupModal } from './components/AndroidSetupModal';
+import { PWAInstallBanner } from './components/PWAInstallBanner';
+import { OfflineIndicator } from './components/OfflineIndicator';
 import { INITIAL_PROFILE, INITIAL_MEALS, INITIAL_WEIGHT_HISTORY } from './data/seedData';
 import { CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 
@@ -32,6 +35,8 @@ export default function App() {
   const [isWeightModalOpen, setIsWeightModalOpen] = useState(false);
   const [isSheetsModalOpen, setIsSheetsModalOpen] = useState(false);
   const [isOnboardingModalOpen, setIsOnboardingModalOpen] = useState(false);
+  const [isAndroidModalOpen, setIsAndroidModalOpen] = useState(false);
+
 
   // Toast feedback state
   const [toastMessage, setToastMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
@@ -215,6 +220,7 @@ export default function App() {
           profile={profile}
           onOpenSheetsModal={() => setIsSheetsModalOpen(true)}
           isSheetsConnected={isSheetsConnected}
+          onOpenAndroidGuide={() => setIsAndroidModalOpen(true)}
         />
 
         {/* Right Content Area */}
@@ -226,7 +232,11 @@ export default function App() {
             onSelectTab={setCurrentTab}
             onOpenSheetsModal={() => setIsSheetsModalOpen(true)}
             isSheetsConnected={isSheetsConnected}
+            onOpenAndroidGuide={() => setIsAndroidModalOpen(true)}
           />
+
+          {/* Android PWA Install Banner */}
+          <PWAInstallBanner onOpenAndroidGuide={() => setIsAndroidModalOpen(true)} />
 
           {/* Tab Views */}
           <main className="flex-1 px-4 sm:px-6 md:px-8 py-6 max-w-6xl w-full mx-auto">
@@ -274,6 +284,7 @@ export default function App() {
                 onLogWeight={handleSaveWeight}
                 onOpenSheetsModal={() => setIsSheetsModalOpen(true)}
                 isSheetsConnected={isSheetsConnected}
+                onOpenAndroidGuide={() => setIsAndroidModalOpen(true)}
               />
             )}
           </main>
@@ -289,6 +300,15 @@ export default function App() {
 
       {/* Mobile Bottom Navigation Bar */}
       <BottomNav currentTab={currentTab} onSelectTab={setCurrentTab} />
+
+      {/* Offline Toast Indicator */}
+      <OfflineIndicator />
+
+      {/* Android Setup & PWA Modal */}
+      <AndroidSetupModal
+        isOpen={isAndroidModalOpen}
+        onClose={() => setIsAndroidModalOpen(false)}
+      />
 
       {/* Meal Creation & Edit Modal */}
       <MealModal

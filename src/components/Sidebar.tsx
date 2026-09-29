@@ -1,7 +1,16 @@
 import React from 'react';
 import { ViewTab, UserProfile } from '../types';
 import { DailyPlateLogo } from './DailyPlateLogo';
-import { LayoutDashboard, Calendar as CalendarIcon, TrendingUp, User, Database, CheckCircle2, AlertCircle } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Calendar as CalendarIcon,
+  TrendingUp,
+  User,
+  Database,
+  CheckCircle2,
+  AlertCircle,
+  Smartphone,
+} from 'lucide-react';
 
 interface SidebarProps {
   currentTab: ViewTab;
@@ -9,6 +18,7 @@ interface SidebarProps {
   profile: UserProfile;
   onOpenSheetsModal: () => void;
   isSheetsConnected: boolean;
+  onOpenAndroidGuide: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -17,6 +27,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   profile,
   onOpenSheetsModal,
   isSheetsConnected,
+  onOpenAndroidGuide,
 }) => {
   const navItems = [
     { id: 'dashboard' as ViewTab, label: 'Dashboard', icon: LayoutDashboard },
@@ -27,14 +38,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <aside className="hidden md:flex flex-col w-64 bg-white border-r border-[#dee8ff]/80 min-h-screen p-5 justify-between select-none shrink-0 sticky top-0 h-screen z-20">
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-5">
         {/* Logo and Brand */}
         <div className="pt-2">
           <DailyPlateLogo size="md" subtitle="Diet Planning & Tracking" />
         </div>
 
         {/* Navigation items */}
-        <nav className="flex flex-col gap-1.5 pt-2" aria-label="Main Navigation">
+        <nav className="flex flex-col gap-1.5 pt-1" aria-label="Main Navigation">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = currentTab === item.id;
@@ -55,8 +66,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
           })}
         </nav>
 
+        {/* Android Phone Setup Guide CTA */}
+        <button
+          onClick={onOpenAndroidGuide}
+          className="p-3 rounded-xl bg-gradient-to-br from-[#f2fbf5] to-[#e6f5ec] border border-[#aff1c6]/70 flex items-center gap-2.5 text-left hover:border-[#206140] transition group shadow-xs"
+        >
+          <div className="w-8 h-8 rounded-lg bg-[#206140] text-white flex items-center justify-center shrink-0">
+            <Smartphone className="w-4 h-4" />
+          </div>
+          <div className="flex flex-col min-w-0">
+            <span className="text-[12px] font-bold text-[#002111] group-hover:text-[#206140] flex items-center gap-1">
+              Android Phone App
+            </span>
+            <span className="text-[10px] text-[#206140] truncate">Install guide & zero permissions</span>
+          </div>
+        </button>
+
         {/* Google Sheets Sync Card */}
-        <div className="p-3.5 rounded-xl bg-[#f0f3ff] border border-[#d9e3f9]/60 flex flex-col gap-2 mt-2">
+        <div className="p-3.5 rounded-xl bg-[#f0f3ff] border border-[#d9e3f9]/60 flex flex-col gap-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5 text-[12px] font-bold text-[#121c2c]">
               <Database className="w-3.5 h-3.5 text-[#206140]" />
@@ -85,6 +112,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </button>
         </div>
       </div>
+
 
       {/* User profile footer */}
       <div className="pt-4 border-t border-[#dee8ff]/80 flex items-center justify-between">
